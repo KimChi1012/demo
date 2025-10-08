@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineMaster Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-icon {
+            background: linear-gradient(90deg, #2e4365, #e59d2c, #8a3b08);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+    <style>
+        nav div i,
+        nav div span {
+            color: #5c5b5b; /* Màu xám bạn muốn */
+        }
+        /* 🌈 Gradient chỉ hiện khi hover hoặc active */
+        nav div:hover i,
+        nav div:hover span,
+        nav div.active i,
+        nav div.active span {
+            background: linear-gradient(
+            to bottom,
+            hsl(24, 89%, 29%) 0%,
+            #b06c18 40%,
+            #e59d2c 50%,
+            #384d64 80%,
+            #2e4365 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+        }
+
+    nav div {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+    }
+
+    nav div:hover {
+        background-color: rgba(212, 160, 23, 0.05);
+        border-left: 4px solid #d4a017; /* thanh vàng bên trái */
+        background-color: rgba(212, 160, 23, 0.08);
+    }
+    </style>
+    
+</head>
+<body class="bg-gray-50">
+    <!-- Sidebar -->
+    <div class="flex h-screen">
+        <div class="w-64 bg-[#fff] text-gray-900 shadow-lg">
+            <div class="p-4 flex items-center justify-center border-b border-primary-700">
+                 <a href="#home" class="logo"><img src="logo HC.png" alt="High Cinema Logo" class="logo" style="height:68px;"></a>
+            </div>
+            <nav class="mt-6">
+                <div class="px-6 py-3 flex items-center cursor-pointer transition ">
+                     <i class="fas fa-home text-lg mr-3"></i>
+                    <span class="text-2x2 font-semibold">Bảng Điều Khiển</span>
+                </div>
+                <div class="px-6 py-3 mt-1 flex items-center cursor-pointer transition">
+                    <i class="fas fa-calendar-alt text-lg mr-3"></i>
+                    <span class="text-2x2 font-semibold">Lịch Chiếu</span>
+                </div>
+                <div class="px-6 py-3 mt-1 flex items-center cursor-pointer transition">
+                    <i class="fas fa-video text-lg mr-3"></i>
+                    <span class="text-2x2 font-semibold">Phim</span>
+                </div>
+                <div class="px-6 py-3 mt-1 flex items-center cursor-pointer transition">
+                    <i class="fas fa-users text-lg mr-3"></i>
+                    <span class="text-2x2 font-semibold">Khách Hàng</span>
+                </div>
+                <div class="px-6 py-3 mt-1 flex items-center cursor-pointer transition">
+                    <i class="fas fa-dollar-sign text-lg mr-3"></i>
+                    <span class="text-2x2 font-semibold">Giao Dịch</span>
+                </div>
+                <div class="px-6 py-3 mt-1 flex items-center cursor-pointer transition">
+                    <i class="fas fa-cog text-lg mr-3"></i>
+                    <span class="text-2x2 font-semibold">Cài Đặt</span>
+                </div>
+            </nav>
+        </div>
+
+            <!-- Content -->
+            <div class="p-6">
+                <!-- Filter and Add Button -->
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex space-x-4">
+                        <div class="relative">
+                            <input type="text" placeholder="Tìm kiếm khách hàng..." class="bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded leading-tight focus:outline-none focus:border-primary-500">
+                        </div>
+                        <div class="relative">
+                            <select class="block appearance-none bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:border-primary-500">
+                                <option>Tất Cả Loại KH</option>
+                                <option>Thành viên</option>
+                                <option>VIP</option>
+                                <option>Bình thường</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded hover:bg-primary-700 transition flex items-center">
+                        <i data-feather="plus" class="w-4 h-4 mr-2"></i>
+                        Thêm Khách Hàng
+                    </button>
+                </div>
+
+                <!-- Customers Table -->
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Khách Hàng</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Số ĐT</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Loại KH</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Điểm Tích Lũy</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thao Tác</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full" src="http://static.photos/people/100x100/1" alt="Customer">
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">Nguyễn Văn A</div>
+                                                <div class="text-xs text-gray-500">ID: KH001</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">nguyenvana@example.com</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">0987654321</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                            VIP
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">1,250 điểm</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <button class="text-primary-600 hover:text-primary-900 mr-3">Sửa</button>
+                                        <button class="text-red-600 hover:text-red-900">Khóa</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full" src="http://static.photos/people/100x100/2" alt="Customer">
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">Trần Thị B</div>
+                                                <div class="text-xs text-gray-500">ID: KH002</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">tranthib@example.com</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">0912345678</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                            Thành viên
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">750 điểm</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <button class="text-primary-600 hover:text-primary-900 mr-3">Sửa</button>
+                                        <button class="text-red-600 hover:text-red-900">Khóa</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full" src="http://static.photos/people/100x100/3" alt="Customer">
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">Lê Văn C</div>
+                                                <div class="text-xs text-gray-500">ID: KH003</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">levanc@example.com</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">0978123456</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                                            Bình thường
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">250 điểm</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <button class="text-primary-600 hover:text-primary-900 mr-3">Sửa</button>
+                                        <button class="text-red-600 hover:text-red-900">Khóa</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="flex justify-between items-center mt-4">
+                    <div class="text-sm text-gray-500">
+                        Hiển thị 1 đến 3 của 15 khách hàng
+                    </div>
+                    <div class="flex space-x-1">
+                        <button class="px-3 py-1 border border-gray-300 rounded text-sm text-gray-700 bg-white hover:bg-gray-50">Trước</button>
+                        <button class="px-3 py-1 border border-primary-500 rounded text-sm text-white bg-primary-600">1</button>
+                        <button class="px-3 py-1 border border-gray-300 rounded text-sm text-gray-700 bg-white hover:bg-gray-50">2</button>
+                        <button class="px-3 py-1 border border-gray-300 rounded text-sm text-gray-700 bg-white hover:bg-gray-50">3</button>
+                        <button class="px-3 py-1 border border-gray-300 rounded text-sm text-gray-700 bg-white hover:bg-gray-50">Sau</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>
